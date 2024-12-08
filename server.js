@@ -1,17 +1,19 @@
 import express from "express";
 import { setupAndAttestMemoraEvent } from "./setupMemoraEvent.js";
-
+import cors from "cors";
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware to parse JSON bodies
 app.use(express.json());
 
+app.use(cors());
+
 // Endpoint to trigger attestation
 app.post("/attest-event", async (req, res) => {
   try {
     const eventData = req.body; // Optional: Accept dynamic event data
-
+    console.log(eventData);
     // Execute the attestation process
     console.log("Initiating attestation...");
     await setupAndAttestMemoraEvent(eventData);

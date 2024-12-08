@@ -6,7 +6,7 @@ export const setupAndAttestMemoraEvent = async (eventData = null) => {
     // Default event data if none is provided
     const defaultEventData = {
       eventName: "EthIndia2024",
-      eventDescription: "Exclusive EthIndia 2024",
+      eventDescription: "Exclusive2024",
       latitude: "127.112",
       longitude: "37.5665",
       userAddress: "iLVDid7RvLmzBctjcb8ZH58BC7MchK5gDaKFqGWnKVoGW4y",

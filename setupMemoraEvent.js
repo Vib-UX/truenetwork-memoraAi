@@ -1,25 +1,27 @@
 import memoraAiSchema from "./schemas/memoraAiSchema.js";
 import { getTrueNetworkInstance } from "./true-network/true.config.js";
-// import { getTrueNetworkInstance } from "./true-network/true.config.ts";
 
-const setupAndAttestMemoraEvent = async () => {
+export const setupAndAttestMemoraEvent = async (eventData = null) => {
   try {
-    // User's wallet address
-    const userWallet = "iLVDid7RvLmzBctjcb8ZH58BC7MchK5gDaKFqGWnKVoGW4y";
-
-    const api = await getTrueNetworkInstance();
-
-    // Event data for attestation
-    const eventData = {
+    // Default event data if none is provided
+    const defaultEventData = {
       eventName: "EthIndia2024",
       eventDescription: "Exclusive EthIndia 2024",
       latitude: "127.112",
       longitude: "37.5665",
-      userAddress: userWallet,
+      userAddress: "iLVDid7RvLmzBctjcb8ZH58BC7MchK5gDaKFqGWnKVoGW4y",
     };
 
+    const finalEventData = eventData || defaultEventData;
+
+    const api = await getTrueNetworkInstance();
+
     // Create attestation
-    const output = await memoraAiSchema.attest(api, userWallet, eventData);
+    const output = await memoraAiSchema.attest(
+      api,
+      finalEventData.userAddress,
+      finalEventData
+    );
 
     console.log("Attestation Transaction Hash:", output);
 
@@ -29,6 +31,3 @@ const setupAndAttestMemoraEvent = async () => {
     console.error("Failed to create attestation:", error);
   }
 };
-
-// Execute the function
-setupAndAttestMemoraEvent();
